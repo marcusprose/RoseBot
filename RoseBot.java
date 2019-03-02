@@ -39,17 +39,34 @@ public class RoseBot extends AdvancedRobot
 		}
 	}
 
-
-
 	/**
 	 * onScannedRobot: What to do when you see another robot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
 	// Replace the next line with any behavior you would like
-	fire(1);
-}
+		double angle = getHeading() + e.getBearing();
+		double turn = angle - getGunHeading();
 
+		setTurnGunLeft(turn);
+		double x = xCoord(e);
+		double y = yCoord(e);
+		System.out.println(x + ", " + y);
 
+	}
+
+	public double xCoord(ScannedRobotEvent e) {
+		double angle = getHeadingRadians() + e.getBearingRadians();
+		double dist = e.getDistance() * Math.sin(angle);
+		return dist + getX();
+
+	}
+
+	public double yCoord(ScannedRobotEvent e) {
+		double angle = getHeadingRadians() + e.getBearingRadians();
+		double dist = e.getDistance() * Math.cos(angle);
+		return dist + getY();
+
+	}
 
 
 	/**
