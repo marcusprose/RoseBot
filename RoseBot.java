@@ -67,6 +67,26 @@ public class RoseBot extends AdvancedRobot
 		return dist + getY();
 
 	}
+	
+	public double xPredict(ScannedRobotEvent e) {
+		double speed = Rules.getBulletSpeed(2.0);
+		//the speed can be changed from [.1, 3.0]
+		double time = speed * e.getDistance();
+		double x = xCoord(e) + time * e.getVelocity()* Math.sin(e.getHeadingRadians());
+		return x;
+	}
+
+	public double yPredict(ScannedRobotEvent e) {
+		double speed = Rules.getBulletSpeed(2.0);
+		//the speed can be changed from [.1, 3.0]
+		double time = speed * e.getDistance();
+		double y = xCoord(e) + time * e.getVelocity()* Math.cos(e.getHeadingRadians());
+		return y;
+	}
+
+
+
+// Scanned robot gets you name heading, bearing, energy, ... look for more in API
 
 
 	/**
